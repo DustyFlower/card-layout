@@ -12,7 +12,24 @@ export const ButtonWrapper = styled.div`
 type StyledBtnPropsType = {
     btnType: 'primary' | 'outlined'
 }
+
+const buttonStyles = {
+    primary: css`
+        color: white;
+        background-color: ${cardTheme.colors.buttonColor};
+        border: 2px solid ${cardTheme.colors.buttonColor};
+    `,
+    outlined: css`
+        color: ${cardTheme.colors.buttonColor};
+        background-color: transparent;
+        border: 2px solid ${cardTheme.colors.buttonColor};
+    `
+}
+
 export const StyledBtn = styled.button<StyledBtnPropsType>`
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    line-height: 1;
     border: none;
     width: 86px;
     height: 30px;
@@ -21,17 +38,10 @@ export const StyledBtn = styled.button<StyledBtnPropsType>`
     align-items: center;
     font-size: 10px;
     border-radius: 5px;
+    transition: all 0.2s;
 
-
-    ${props => props.btnType === 'primary' && css<StyledBtnPropsType>`
-        color: white;
-        background-color: ${cardTheme.colors.buttonColor};
-    `
-    }
-
-    ${props => props.btnType === 'outlined' && css<StyledBtnPropsType>`
-        color: ${cardTheme.colors.buttonColor};
-        background-color: transparent;
-        border: 2px solid ${cardTheme.colors.buttonColor};
-    `}
+    ${props => buttonStyles[props.btnType]}
+        // При наведении применяем стили противоположного типа
+    &:hover {
+        ${props => buttonStyles[props.btnType === 'primary' ? 'outlined' : 'primary']}
 `
